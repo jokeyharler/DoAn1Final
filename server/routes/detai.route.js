@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const detai = require("../models/detai.model");
+const sinhvien = require("../models/taikhoan.model");
 
 const adminMiddleware = require("../middlewares/login.middleware");
 const sinhvienMiddleWare = require("../middlewares/sinhvienLogin.middleware");
@@ -12,20 +13,46 @@ router.get("/giangvien", adminMiddleware, async (req, res) => {
   res.json({ detaiAdmin });
 });
 
+router.get("/all-detai", async (req, res) => {
+  const alldetai = await detai.find();
+  res.json(alldetai);
+});
+
+router.get("/:id", async (req, res) => {
+  const newsinhvien = await sinhvien.findOne({ maDeTai: req.params.id });
+  const newdetai = await detai.findOne({ _id: req.params.id });
+  res.json({
+    tenSinhVien: newsinhvien.tenTaiKhoan,
+    tenDeTai: newdetai.tenDeTai,
+  });
+});
+
+router.post("/phanhoi/:id", async (req, res) => {
+  const { phanhoi } = req.body;
+  const newdetai = await detai.findByIdAndUpdate(
+    { _id: req.params.id },
+    { nhanXet: phanhoi }
+  );
+  res.json(phanhoi);
+});
+
+router.post("/:id", async (req, res) => {
+  const approve = await detai.findByIdAndUpdate(
+    { _id: req.params.id },
+    { trangThai: "Duyệt" }
+  );
+  res.send("appoved");
+});
 //thêm mới đề tài
-router.post("/create", adminMiddleware, async (req, res) => {
-  const { tenDeTai, maSinhVien } = req.body;
-  try {
-    const newDeTai = new detai({
-      tenDeTai,
-      maSinhVien,
-      maGiangVien: req.adminId,
-    });
-    await newDeTai.save();
-    res.json({ success: true, newDeTai });
-  } catch (error) {
-    console.log(error);
-  }
+router.post("/new-detai/create", sinhvienMiddleWare, async (req, res) => {
+  const { tenDeTai } = req.body;
+  let newDeTai = new detai({
+    tenDeTai,
+    maSinhVien: req.studentId,
+    trangThai: "Chưa Duyệt",
+  });
+  await newDeTai.save();
+  res.json(newDeTai);
 });
 
 //xóa đề tài
@@ -39,9 +66,9 @@ router.delete("/:id", adminMiddleware, async (req, res) => {
 });
 
 //lấy đề tài thuộc sinh viên
-router.get("/sinhvien", sinhvienMiddleWare, async (req, res) => {
-  const DeTai = await detai.find({ maSinhVien: req.studentId });
-  res.json({ DeTai });
+router.get("/sinhviendetai/sinhvien", sinhvienMiddleWare, async (req, res) => {
+  const DeTai = await detai.findOne({ maSinhVien: req.studentId });
+  res.json(DeTai);
 });
 
 module.exports = router;

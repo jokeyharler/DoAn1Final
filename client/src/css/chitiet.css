@@ -1,0 +1,219 @@
+body{
+    margin: 0;
+}
+.header{
+    width: 100%;
+    height: 20%;
+    background-color: blue;
+    display: flex;
+}
+.logo{
+    display: flex;
+}
+.logo img{
+    width: 80px;
+    height: 80px;
+    margin: 10px 10px 10px;
+}
+.logo span{
+    margin: auto;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+}
+.main{
+    display: flex;
+}
+.side-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #f1f1f1;
+    height: 100%;
+    overflow: auto;
+    margin-bottom: 30px;
+  }
+  
+.side-bar li a {
+    display: block;
+    color: #000;
+    padding: 10px 16px;
+    text-decoration: none;
+}
+.side-bar li img{
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+} 
+.side-bar li a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+  
+.side-bar li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+.info-bar{
+    width: 25%;
+    height: 850px;
+    background-color: #ebe7e7;
+}
+.info-bar .item{
+    display: flex;
+    margin: 10px 10px 10px;
+}
+.info-bar .item img{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.info-bar .item p{
+    margin: 0;
+    font-size: 16px;
+    margin-top: 2px;
+}
+.info-bar .image img{
+    width: 150px;
+    height: 150px;
+    margin-left: 25%;
+}
+.info-bar .name{
+    font-size: 18px;
+    margin-top: 10px;
+}
+.info-bar .name ul{
+    list-style-type: none;
+    padding: 0;
+    padding-left: 10px;
+}
+.info-bar .name ul li:last-child{
+    margin-top: 10px;
+}
+.content{
+    width: 100%;
+    height: 760px;
+   
+}
+.nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.nav ul li {
+    float: left;
+  }
+  
+.nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+.nav ul li a:hover {
+    background-color: #111;
+}
+.name-table{
+    margin-left: 35%;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.content .box-col{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 100px;
+    margin-top: 40px;
+}
+.box-col .col-item{
+    width: calc((100%-50px)/2);
+    margin-bottom: 40px;
+
+}
+.document-col{
+    margin-left: 100px;
+}
+.document-col .text{
+    margin-bottom: 20px;
+}
+.file{
+    display: flex;
+    flex-wrap: wrap;
+}
+.file .file-text{
+    border-style: solid;
+    width: 30%;
+    background-color: rgb(212, 209, 209);
+    text-align: center;
+}
+.comment-col{
+    display: flex;
+    flex-wrap: wrap;
+}
+.comment-col .text{
+    margin-top: 40px;
+    margin-left: 100px;
+}
+.comment-col .text-area{
+    margin-top: 40px;
+    margin-left: 20px;
+}
+.button {
+    background-color: #ccc;
+    border: none;
+    color: white;
+    padding: 2px 3px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left:10px ;
+    cursor: pointer;
+  }
+.custom{
+    display: flex;
+    flex-wrap: wrap;
+}
+.custom-select{
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 200px;
+}
+.custom .text{
+    margin-top: 40px;
+    margin-left: 100px;
+}
+
+.footer{
+    background-color: black;
+    width: 100%;
+    height: 100px;
+}
+.footer p{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    padding-top: 40px;
+}
+.button-send{
+    margin: 40px 100px;
+}
+.button-send .button{
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}

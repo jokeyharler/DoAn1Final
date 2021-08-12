@@ -11,6 +11,14 @@ const SinhvienSchema = new Schema({
     enum: ["Nam", "Nữ"],
     require: true,
   },
+  maGiangVien: {
+    type: Schema.Types.ObjectId,
+    default: null,
+  },
+  maDeTai: {
+    type: Schema.Types.ObjectId,
+    default: null,
+  },
   namSinh: {
     type: Number,
     require: true,

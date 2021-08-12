@@ -1,19 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const DetaiSchema = new Schema({
+const DeTaiSchema = new Schema({
   tenDeTai: {
     type: String,
     require: true,
   },
-  maSinhVien: {
-    type: Schema.Types.ObjectId,
+  trangThai: {
+    type: String,
+    enum: ["Duyệt", "Chưa Duyệt"],
     require: true,
   },
-  maGiangVien: {
+  nhanXet: {
+    type: String,
+    default: "",
+  },
+  maSinhVien: {
     type: Schema.Types.ObjectId,
-    require: true,
   },
 });
 
-module.exports = mongoose.model("DeTai", DetaiSchema);
+module.exports = mongoose.model("DeTai", DeTaiSchema);

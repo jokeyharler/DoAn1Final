@@ -4,16 +4,16 @@ const router = express.Router();
 const chiTietTienDo = require("../models/chitiettiendo.model");
 const detai = require("../models/detai.model");
 const sinhvienMiddleWare = require("../middlewares/sinhvienLogin.middleware");
+const taikhoanModel = require("../models/taikhoan.model");
 
 //Tạo tiến độ mới
-router.post("/create", async (req, res) => {
-  const { maSinhVien, maDeTai, tenTienDo, ngayBatDau, ngayKetThuc } = req.body;
+router.post("/create", sinhvienMiddleWare, async (req, res) => {
+  const sinhvien = await taikhoanModel.findOne({ _id: req.studentId });
+  const { tenTienDo, filePath } = req.body;
   const newTienDo = new chiTietTienDo({
-    maSinhVien,
-    maDeTai,
+    maDeTai: sinhvien.maDeTai,
     tenTienDo,
-    ngayBatDau,
-    ngayKetThuc,
+    filePath,
   });
   await newTienDo.save();
   res.json({ message: "Da Tao Tien Do Moi" });
@@ -29,8 +29,15 @@ router.get("/sinhvien", sinhvienMiddleWare, async (req, res) => {
   res.json({ tiendo });
 });
 
+router.get("/", async (req, res) => {
+  const newtiendo = await chiTietTienDo.find();
+  res.json(newtiendo);
+});
+
 //chức năng nộp bài
-router.put("/nopbai/:id", async (req, res) => {
+router.post("/nopbai", sinhvienMiddleWare, async (req, res) => {
+  const { tenTienDo } = req.body;
+  const sinhvien = await taikhoanModel.findOne({ _id: req.studentId });
   const file = req.files.file;
   const fileName = file.name;
   file.mv("E:/ky220/DoAn1/server/public/" + fileName, function (erros) {
@@ -39,23 +46,29 @@ router.put("/nopbai/:id", async (req, res) => {
     }
   });
   const filePath = "E:/ky220/DoAn1/server/public/" + fileName;
-  await chiTietTienDo.findOneAndUpdate(
-    { _id: req.params.id },
-    { filePath, fileName, trangThai: "submited" }
-  );
+  let newTienDo = new chiTietTienDo({
+    maDeTai: sinhvien.maDeTai,
+    tenTienDo,
+    filePath,
+    fileName,
+  });
+  await newTienDo.save();
+
+  const { formData } = req.body;
+  // for (let key of formData.entries()) {
+  //   console.log(key[0] + ", " + key[1]);
+  // }
+  console.log(req.body);
   res.json({ message: "submited" });
 });
 
 //chức năng chấm điểm
 router.put("/chamdiem/:id", async (req, res) => {
-  const { nhanXet, diemSo } = req.body;
+  const { nhanXet } = req.body;
   if (!diemSo) {
     return res.json({ message: "score invalid" });
   }
-  await chiTietTienDo.findOneAndUpdate(
-    { _id: req.params.id },
-    { nhanXet, diemSo }
-  );
+  await chiTietTienDo.findOneAndUpdate({ _id: req.params.id }, { nhanXet });
   res.json({ message: "fullfill score" });
 });
 

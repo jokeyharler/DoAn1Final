@@ -10,6 +10,12 @@ const TaiKhoanSchema = new Schema({
     type: String,
     enum: ["Admin", "Student"],
   },
+  maGiangVien: {
+    type: Schema.Types.ObjectId,
+  },
+  maDeTai: {
+    type: Schema.Types.ObjectId,
+  },
   gioiTinh: {
     type: String,
     enum: ["Nam", "Nữ"],

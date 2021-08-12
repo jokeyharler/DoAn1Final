@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ChiTietTienDo = new Schema({
   maDeTai: {
     type: Schema.Types.ObjectId,
-    ref: "GiangVien",
+    ref: "DeTai",
   },
   tenTienDo: {
     type: String,
@@ -14,33 +14,13 @@ const ChiTietTienDo = new Schema({
     type: String,
     default: null,
   },
-  fileName: {
-    type: String,
-    default: null,
-  },
   nhanXet: {
     type: String,
     default: null,
   },
-  diemSo: {
-    type: Number,
-    default: null,
-  },
-  yeuCau: {
-    type: String,
-    default: null,
-  },
-  ngayBatDau: {
+  ngayNop: {
     type: Date,
     default: Date.now(),
-  },
-  ngayKetThuc: {
-    type: Date,
-    require: true,
-  },
-  trangThai: {
-    type: String,
-    default: "processing",
   },
 });
 

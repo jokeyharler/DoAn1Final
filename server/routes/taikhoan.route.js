@@ -3,6 +3,9 @@ const router = express.Router();
 
 const argon2 = require("argon2");
 const taiKhoan = require("../models/taikhoan.model");
+const sinhvien = require("../models/taikhoan.model");
+
+const sinhvienMiddleWare = require("../middlewares/sinhvienLogin.middleware");
 
 router.post("/create", async (req, res) => {
   const {
@@ -38,6 +41,20 @@ router.post("/create", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+router.post("/gvhd", sinhvienMiddleWare, async (req, res) => {
+  const { maGiangVien } = req.body;
+  await sinhvien.findOneAndUpdate(
+    { _id: req.studentId },
+    { maGiangVien: maGiangVien }
+  );
+  res.json({ message: "updated" });
+});
+
+router.get("/", sinhvienMiddleWare, async (req, res) => {
+  let sinhvien = await taiKhoan.findById({ _id: req.studentId });
+  res.json(sinhvien);
 });
 
 module.exports = router;
